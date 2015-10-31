@@ -89,7 +89,7 @@ int Maxflow(int st,int ed)
 
 int main()
 {
-    while(~scanf("%d%d",&m,&n))
+    while(~scanf("%d%d",&n,&m))
     {
          edges.clear();
         for(int i=0; i<N; i++) G[i].clear();
