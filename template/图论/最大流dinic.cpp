@@ -73,6 +73,7 @@ int DFS(int x,int a)
             if(a==0) break;
         }
     }
+     if(!flow) d[x] = -1;
     return flow;
 }
 
