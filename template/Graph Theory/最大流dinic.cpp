@@ -90,7 +90,7 @@ int Maxflow(int st,int ed)
 
 int main()
 {
-    int n,m;
+    int n,m,u,v,c;;
     while(~scanf("%d%d",&n,&m))
     {
          edges.clear();
@@ -98,7 +98,6 @@ int main()
         s=1;t=n;
         for(int i=0;i<m;i++)
         {
-            int u,v,c;
             scanf("%d%d%d",&u,&v,&c);
             AddEdge(u,v,c);
         }
