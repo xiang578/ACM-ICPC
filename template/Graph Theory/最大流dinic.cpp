@@ -13,7 +13,7 @@ struct Edge
 };
 vector<Edge>edges;
 vector<int>G[N];
-int n,m,s,t;
+int s,t;
 int vis[N];
 int d[N];
 int cur[N];
@@ -90,6 +90,7 @@ int Maxflow(int st,int ed)
 
 int main()
 {
+    int n,m;
     while(~scanf("%d%d",&n,&m))
     {
          edges.clear();
