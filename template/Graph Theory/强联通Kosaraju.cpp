@@ -34,14 +34,14 @@ void Addedge(int s,int t)
     gt[t].push_back(edge.size()-1);
 }
 
-void dfs(int u)
+void dfsa(int u)
 {
     int i,v;
     vis[u]=1;
     for(i=0;i<g[u].size();i++)
     {
         v=edge[g[u][i]].t;
-        if(!vis[v]) dfs(v);
+        if(!vis[v]) dfsa(v);
     }
     ord[cnt++]=u;
 }
@@ -81,7 +81,7 @@ int main()
         memset(vis,0,sizeof(vis));
         for(i=0;i<n;i++)
         {
-            if(!vis[i]) dfs(i);
+            if(!vis[i]) dfsa(i);
         }
         cnt=0;
         memset(vis,0,sizeof(vis));
