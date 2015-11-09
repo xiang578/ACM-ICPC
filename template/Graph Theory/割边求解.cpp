@@ -1,4 +1,5 @@
 //zoj 2588
+//割边(u,v)为生成树中的边，且满足dfn[u]<low[v]
 #include<bits/stdc++.h>
 using namespace std;
 
