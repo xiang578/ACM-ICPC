@@ -1,3 +1,4 @@
+//poj 1523
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
