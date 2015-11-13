@@ -16,7 +16,7 @@ int prim(int n)
     pre[st]=-1;
     for(int i=1;i<n;i++)
     {
-        dist[i]=g[i][st];
+        dist[i]=g[st][i];
         pre[i]=st;
     }
     dist[st]=0;
@@ -32,13 +32,13 @@ int prim(int n)
                 p=j;
             }
         }
-        if(minc==INF) return -1;
+        if(p==-1) return -1;
         ret+=minc;
         vis[p]=1;
         use[p][pre[p]]=use[pre[p]][p]=1;
         for(int j=0;j<n;j++)
         {
-            if(vis[j])
+            if(vis[j]&&j!=p)
                 maxcost[j][p]=maxcost[p][j]=max(maxcost[j][pre[p]],dist[p]);
             if(!vis[j]&&dist[j]>g[p][j])
             {
