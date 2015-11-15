@@ -49,7 +49,7 @@ void Tarjan(int u,int pre)
         {
             Tarjan(v,u);
             if(low[u]>low[v]) low[u]=low[v];
-            if(low[v]>low[u])
+            if(low[v]>dfn[u])
             {
                 bridge++;
                 edge[i].cut=1;
