@@ -2,7 +2,7 @@
 
 1. bibliography 参考资料
 2. tmplate 模版
-3. 其他是一些题目的代码
+3. 其他 某些onlineJudge题目的代码
 
 ----------
-联系我-xiang578@foxmail.com
+联系我：xiang578@foxmail.com
