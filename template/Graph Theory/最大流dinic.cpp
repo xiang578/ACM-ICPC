@@ -1,4 +1,4 @@
-//poj 1273 最大流
+//poj 1273 脳卯麓贸脕梅
 #include<stdio.h>
 #include<string.h>
 #include<queue>
@@ -90,7 +90,7 @@ int Maxflow(int st,int ed)
 
 int main()
 {
-    int n,m,u,v,c;;
+    int n,m,u,v,c;
     while(~scanf("%d%d",&n,&m))
     {
          edges.clear();
