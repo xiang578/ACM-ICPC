@@ -1,82 +1,4 @@
-<<<<<<< HEAD
-#define maxn 1000001
-int wa[maxn],wb[maxn],wv[maxn],ws[maxn];
-int cmp(int *r,int a,int b,int l)
-{
-    return r[a]==r[b]&&r[a+l]==r[b+l];
-}
-void da(int *r,int *sa,int n,int m)
-{
-    int i,j,p,*x=wa,*y=wb,*t;
-    for(i=0; i<m; i++) ws[i]=0;
-    for(i=0; i<n; i++) ws[x[i]=r[i]]++;
-    for(i=1; i<m; i++) ws[i]+=ws[i-1];
-    for(i=n-1; i>=0; i--) sa[--ws[x[i]]]=i;
-    for(j=1,p=1; p<n; j*=2,m=p)
-    {
-        for(p=0,i=n-j; i<n; i++) y[p++]=i;
-        for(i=0; i<n; i++) if(sa[i]>=j) y[p++]=sa[i]-j;
-        for(i=0; i<n; i++) wv[i]=x[y[i]];
-        for(i=0; i<m; i++) ws[i]=0;
-        for(i=0; i<n; i++) ws[wv[i]]++;
-        for(i=1; i<m; i++) ws[i]+=ws[i-1];
-        for(i=n-1; i>=0; i--) sa[--ws[wv[i]]]=y[i];
-        for(t=x,x=y,y=t,p=1,x[sa[0]]=0,i=1; i<n; i++)
-            x[sa[i]]=cmp(y,sa[i-1],sa[i],j)?p-1:p++;
-    }
-    return;
-}
-int rank[maxn],height[maxn];
-void calheight(int *r,int *sa,int n)
-{
-    int i,j,k=0;
-    for(i=1; i<=n; i++) rank[sa[i]]=i;
-    for(i=0; i<n; height[rank[i++]]=k)
-        for(k?k--:0,j=sa[rank[i]-1]; r[i+k]==r[j+k]; k++);
-    return;
-}
-int RMQ[maxn];
-int mm[maxn];
-int best[20][maxn];
-void initRMQ(int n)
-{
-    int i,j,a,b;
-    for(mm[0]=-1,i=1; i<=n; i++)
-        mm[i]=((i&(i-1))==0)?mm[i-1]+1:mm[i-1];
-    for(i=1; i<=n; i++) best[0][i]=i;
-    for(i=1; i<=mm[n]; i++)
-        for(j=1; j<=n+1-(1<<i); j++)
-        {
-            a=best[i-1][j];
-            b=best[i-1][j+(1<<(i-1))];
-            if(RMQ[a]<RMQ[b]) best[i][j]=a;
-            else best[i][j]=b;
-        }
-    return;
-}
-int askRMQ(int a,int b)
-{
-    int t;
-    t=mm[b-a+1];
-    b-=(1<<t)-1;
-    a=best[t][a];
-    b=best[t][b];
-    return RMQ[a]<RMQ[b]?a:b;
-}
-int lcp(int a,int b)
-{
-    int t;
-    a=rank[a];
-    b=rank[b];
-    if(a>b)
-    {
-        t=a;
-        a=b;
-        b=t;
-    }
-    return(height[askRMQ(a+1,b)]);
-}
-=======
+//hdu1403
 /*
 *suffix array
 *倍增算法 O(n*logn)
@@ -90,7 +12,11 @@ int lcp(int a,int b)
 *height[]= { 0, 0, 3, 2, 3, 1, 2, 0, 1 };height[2~n]为有效值
 *
 */
-const int MAXN=2000;
+#include <stdio.h>
+#include <string.h>
+#include<algorithm>
+using namespace std;
+const int MAXN=200000+10;
 int t1[MAXN],t2[MAXN],c[MAXN];//求SA数组需要的中间变量，不需要赋值
 //待排序的字符串放在s数组中，从s[0]到s[n-1],长度为n,且最大值小于m,
 //除s[n-1]外的所有s[i]都大于0，r[n-1]=0
@@ -100,15 +26,15 @@ bool cmp(int *r,int a,int b,int l)
     return r[a]==r[b]&&r[a+l]==r[b+l];
 }
 
-void da(int str[],int sa[],int rank[],int height[],int n,int m)
+int da(int str[],int sa[],int rank1[],int height[],int n,int m,int len1)
 {
     n++;
-    int i,j,p,*x=t1,*y=t2;
+    int i,j,p,*x=t1,*y=t2,ans=0;
     //第一轮基数排序，如果s的最大值很大，可改为快速排序
     for(i=0;i<m;i++) c[i]=0;
     for(i=0;i<n;i++) c[x[i]=str[i]]++;
     for(i=1;i<m;i++) c[i]+=c[i-1];
-    for(i=n-1;i>=0;i--) sa[--c[x[i]]=i;
+    for(i=n-1;i>=0;i--) sa[--c[x[i]]]=i;
     for(j=1;j<=n;j<<=1)
     {
         p=0;
@@ -132,14 +58,47 @@ void da(int str[],int sa[],int rank[],int height[],int n,int m)
     int k=0;
     n--;
     for(i=0;i<=n;i++)
-        rank[sa[i]]=i;
+        rank1[sa[i]]=i;
     for(i=0;i<n;i++)
     {
         if(k) k--;
-        j=sa[rank[i]-1];
+        j=sa[rank1[i]-1];
         while(str[i+k]==str[j+k]) k++;
-        height[rank[i]]=k;
+        height[rank1[i]]=k;
+
+        if(height[rank1[i]]>ans)
+            {
+               //printf("%d %d\n",sa[i],sa[i-1]);
+                if(sa[rank1[i]]>len1&&sa[rank1[i]-1]<len1)
+                    ans=height[rank1[i]];
+                else if(sa[rank1[i]]<len1&&sa[rank1[i]-1]>len1)
+                    ans=height[rank1[i]];
+            }
     }
+    return ans;
 }
 
->>>>>>> origin/master
+char s1[MAXN],s2[MAXN];
+int ch[MAXN];
+int sa[MAXN];
+int rank1[MAXN];
+int height[MAXN];
+int main()
+{
+    int i,len1,len2;
+    while(~scanf("%s",s1))
+    {
+        scanf("%s",s2);
+        len1=strlen(s1);
+        len2=strlen(s2);
+        for(i=0; i<len1; i++)
+            ch[i]=s1[i];
+        ch[len1]=0;
+        for(i=0; i<len2; i++)
+            ch[len1+i]=s2[i];
+        ch[len1+len2]=0;
+        int ans=da(ch,sa,rank1,height,len1+len2+1,128,len1);
+        printf("%d\n",ans);
+    }
+    return 0;
+}
