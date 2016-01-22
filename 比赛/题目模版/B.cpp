@@ -1,25 +1,31 @@
 /* ***********************************************
-Author        :xryz
+Author        :Maltub
 Email         :xiang578@foxmail.com
 Blog          :htttp://www.xiang578.top
-Created Time  :1-16 11:22:37
-File Name     :B.cpp
 ************************************************ */
 
-//#include <stdio.h>
-//#include <string.h>
-//#include <iostream>
-//#include <algorithm>
-//#include <vector>
-//#include <queue>
-//#include <set>
-//#include <map>
-//#include <string>
-//#include <math.h>
-//#include <stdlib.h>
-//#include <time.h>
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+#include <set>
+#include <map>
+#include <string>
+#include <math.h>
+#include <stdlib.h>
+#include <time.h>
+//#include <bits/stdc++.h>
+#define rep(i,a,n) for(int i=a;i<n;i++)
+#define per(i,a,n) for(int i=n-1;i>=a;i--)
+#define pb push_back
 using namespace std;
+typedef vector<int> VI;
+typedef long long ll;
+const ll mod=1000000007;
+const int N=2048;
+
 
 int main()
 {

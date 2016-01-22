@@ -26,11 +26,18 @@ typedef long long ll;
 const ll mod=1000000007;
 const int N=2048;
 
-
 int main()
 {
     //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
-    
+    ll a1,a2,b1,b2,t1,t2;
+    while(~scanf("%lld%lld%lld%lld",&a1,&b1,&a2,&b2))
+    {
+        t1=a2-a1;
+        t2=b2-b1;
+        if(t1<0) t1=-t1;
+        if(t2<0) t2=-t2;
+        printf("%lld\n",max(t1,t2));
+    }
     return 0;
 }
