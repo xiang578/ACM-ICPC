@@ -34,6 +34,7 @@ int main()
         for(i=0;i<n;i++)
             for(j=i;j<n;j++)
                 dp[i][j]=j-i+1;
+
         for(i=n-1;i>=0;i--)
         {
             for(j=i+1;j<n;j++)
