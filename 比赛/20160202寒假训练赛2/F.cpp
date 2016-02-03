@@ -26,11 +26,26 @@ typedef long long ll;
 const ll mod=1000000007;
 const int N=2048;
 
+int prime(ll x)
+{
+    ll t=sqrt(x)+1;
+    for(ll i=2;i<=t;i++)
+    {
+        if(x%i==0) return 0;
+    }
+    return 1;
 
+}
 int main()
 {
     //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
-    
+    ll n,ans;
+    while(~scanf("%lld",&n))
+    {
+       if(n>=7) ans=7;
+       else ans=-1;
+        printf("%lld\n",ans);
+    }
     return 0;
 }
