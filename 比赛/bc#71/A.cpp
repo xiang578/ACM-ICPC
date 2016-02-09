@@ -26,11 +26,30 @@ typedef long long ll;
 const ll mod=1000000007;
 const int N=2048;
 
-
+ll a[100];
 int main()
 {
     //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
-    
+    int i,_;
+    ll n;
+    a[1]=1;
+    a[2]=2;
+    for(i=3;i<10000;i++)
+    {
+        a[i]=a[i-1]+a[i-2];
+        if(a[i]>1e18) break;
+    }
+    scanf("%d",&_);
+    while(_--)
+    {
+        scanf("%lld",&n);
+        for(i=1;;i++)
+        {
+            n-=a[i];
+            if(n<a[i+1]) break;
+        }
+        printf("%d\n",i);
+    }
     return 0;
 }
