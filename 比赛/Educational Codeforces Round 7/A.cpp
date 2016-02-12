@@ -31,6 +31,24 @@ int main()
 {
     //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
-    
+    ll n,a,l,r,mid,tmp,ans;
+    cin>>n;
+    l=1;
+    r=1000000000;
+    a=1;
+    while(l<r)
+    {
+        mid=(l+r+1)/2;
+        tmp=(1+mid)*mid/2;
+        if(tmp>n) r=mid-1;
+        else
+        {
+            a=mid;
+            l=mid;
+        }
+    }
+    ans=n-(1+a)*a/2;
+    if(ans==0) ans=a;
+    cout<<ans<<endl;
     return 0;
 }
