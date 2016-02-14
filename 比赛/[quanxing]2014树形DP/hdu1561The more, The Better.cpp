@@ -26,7 +26,6 @@ int main()
         for(i=0;i<=n;i++)
         {
             v[i].clear();
-            w[i]=0;
         }
         memset(dp,0,sizeof(dp));
         for(i=1;i<=n;i++)
