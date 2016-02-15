@@ -12,16 +12,14 @@ void dfs(int x,int fa)
     for(i=0;i<v[x].size();i++)
     {
         y=v[x][i];
-        //printf("  %d %d\n",x,y);
         if(vis[y]) continue;
         dfs(y,x);
         f=1;
         tmp+=dp[y];
      }
-     if(!f) tmp=dp[x];
-     dp[x]=min(dp[x],tmp);
-     //printf("%d\n",x);
+     if(f) dp[x]=min(dp[x],tmp);
 }
+
 int main()
 {
     int i,j,n,a,b,w;
@@ -42,6 +40,7 @@ int main()
             mp[a][b]=mp[b][a]=w;
         }
         memset(vis,0,sizeof(vis));
+        if(n==1) {puts("0");continue;}
         dfs(m,m);
         printf("%d\n",dp[m]);
     }
