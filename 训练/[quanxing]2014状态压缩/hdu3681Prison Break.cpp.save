@@ -1,3 +1,4 @@
+
 #include<bits/stdc++.h>
 using namespace std;
 const int inf=0x7fffffff;
@@ -68,25 +69,26 @@ int get(int x)
     int up=(1<<cnt)-1;
     memset(dp,0xff,sizeof(dp));
     dp[1][0]=x;
-    for(i=1; i<=up; i++)
+    for(i=0; i<=up; i++)
     {
         for(j=0; j<cnt; j++)
         {
             if(dp[i][j]==-1) continue;
             if((i&(1<<j))==1) continue;
+            if((i&tmp)<=tmp) ans=max(ans,dp[i][j]);
             for(k=0; k<cnt; k++)
             {
                 if(j==k||g[j][k]==inf) continue;
                 if((i&(1<<k))==0) continue;
                 o=(1<<j)|i;
                 dp[o][j]=max(dp[o][j],dp[i][k]-g[j][k]);
-                if()
-                if((o&tmp)<=tmp) ans=max(ans,dp[o][j]);
+                if(dp[o][j]!=-1&&p[j].t)    dp[o][j]=x;
             }
         }
     }
-    if(ans>=0) return 1;
-    else return 0;
+
+    if(ans<0) return 0;
+    else return 1;
 }
 
 int main()
@@ -106,12 +108,15 @@ int main()
                 {
                     p[0].x=i;
                     p[0].y=j;
+                    p[0].t=0;
                 }
                 else if(s[i][j]=='G'||s[i][j]=='Y')
                 {
                     p[cnt].x=i;
                     p[cnt].y=j;
+                    p[cnt].t=0;
                     if(s[i][j]=='Y') tmp+=(1<<cnt);
+                    else p[cnt].t=1;
                     cnt++;
                 }
             }
