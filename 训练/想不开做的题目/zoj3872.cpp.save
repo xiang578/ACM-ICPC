@@ -26,10 +26,11 @@ int main()
             else
             {
                 ans+=(n-i+1)*t;
-                ans+=(i-a[t])*t;
+                ans+=(i-a[t]-1)*t;
+            
             }
             a[t]++;
-            //printf("%d\n",ans);
+            printf("%d\n",ans);
         }
         cout<<ans<<endl;
     }
