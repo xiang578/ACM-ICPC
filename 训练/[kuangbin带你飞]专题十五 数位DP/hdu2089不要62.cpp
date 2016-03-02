@@ -16,7 +16,7 @@ int get(int x)
     {
         for(j=0;j<dig[i];j++)
         {
-            if(j==4||(j==2&&dig[i+1]==6))
+            if(j==4||(j==2&&dig[i+1]==6))continue;
                 ans=ans+f[i][j];
         }
         if(dig[i]==4||(dig[i]==2&&dig[i+1]==6)) break;
