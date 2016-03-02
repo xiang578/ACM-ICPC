@@ -1,12 +1,15 @@
+//ans当成int类型了
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-__int64 f[100][100],b[100];
+__int64 f[100][100];
+int b[100];
 
 
 __int64 get(__int64 x)
 {
-    int cnt=1,i,j,k,ans=0;
+    int cnt=1,i,j,k;
+    __int64 ans=0;
     while(x>0)
     {
         b[cnt]=x%10;
@@ -31,7 +34,7 @@ int main()
     int _,i,j,k;
     ll n;
     f[0][0]=1;
-    for(i=1; i<=25; i++)
+    for(i=1; i<=19; i++)
     {
         for(j=0; j<=9; j++)
         {
