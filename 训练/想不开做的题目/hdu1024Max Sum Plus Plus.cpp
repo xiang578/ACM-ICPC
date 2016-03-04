@@ -1,7 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-ll a[1000000+5],dp[1000000+5],use[1000000+5];
+const int inf=0x3fffffff;
+ll a[1000000+5],dp[1000000+5],pre[1000000+5];
 
 int main()
 {
@@ -13,18 +14,16 @@ int main()
         for(i=1; i<=n; i++)
             scanf("%lld",a+i);
         memset(dp,0,sizeof(dp));
-        memset(use,0xff,sizeof(use));
-        ans=0;
-        use[0]=0;
-        for(i=1; i<=n; i++)
+        memset(pre,0,sizeof(pre));
+        for(i=1;i<=m;i++)
         {
-            for(j=1; j<=m; j++)
+            ans=-inf;
+            for(j=i;j<=n;j++)
             {
-                if(use[j]==-1||use[j]==i) break;
-                dp[j+1]
-
+                dp[j]=max(dp[j-1]+a[j],pre[j]+a[j]);
+                pre[j]=ans;
+                ans=max(ans,dp[j]);
             }
-            ans=max(ans,dp[m]);
         }
         printf("%lld\n",ans);
     }
