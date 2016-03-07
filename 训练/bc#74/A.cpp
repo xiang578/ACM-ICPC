@@ -23,22 +23,50 @@ Blog          :htttp://www.xiang578.top
 using namespace std;
 typedef vector<int> VI;
 typedef long long ll;
-const ll mod=1000000007;
+const ll mod=1e9+7;
 const int N=2048;
-
+int a[123456],ans;
 
 int main()
 {
     //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
-    int _;
-    ll ans,n,m;
+    int _,i,f,cnt,n;
     cin>>_;
     while(_--)
     {
-        scanf("%lld%lld",&n,&m);
-        ans=n/2+m/2;
-        cout<<ans<<endl;
+        scanf("%d",&n);
+        f=0;
+        for(i=1; i<n; i++)
+        {
+            scanf("%d",&a[i]);
+        }
+        for(i=1;i<n-1;i++)
+        {
+            if(a[i]!=0&&a[i+1]!=a[i]-1) f=1;
+        }
+        if(f)
+        {
+            printf("0\n");
+            continue;
+        }
+        ans=1;
+        cnt=0;
+        a[0]=1;
+        for(i=1; i<n; i++)
+        {
+            if(a[i]==0) cnt++;
+            else if(a[i-1]==0) cnt++;
+        }
+
+        ans=26;
+        if(cnt==1) cnt=0;
+        for(i=0; i<cnt; i++)
+        {
+            ans=ans*25;
+            ans%=mod;
+        }
+        printf("%d\n",ans);
     }
     return 0;
 }
