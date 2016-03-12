@@ -30,10 +30,15 @@ int vis[10][10];
 
 void dfs11()
 {
+    /*printf("%d\n",cnt);
     for(int i=1;i<=n;i++)
-       for(int j=1;j<=4;j++)
+    {
+        for(int j=1;j<=4;j++)
             printf("%d ",vis[i][j]);
-    printf("\n");
+        printf("\n");
+    }
+        printf("\n");
+    */
     cnt++;
     return ;
 }
@@ -42,6 +47,7 @@ void dfs11()
 void dfs21(int x,int y)
 {
     dfs11();
+    int nx,ny;
     for(int i=x; i<n; i++)
     {
         for(int j=y; j<=4; j++)
@@ -53,6 +59,7 @@ void dfs21(int x,int y)
                 vis[i][j]=vis[i+1][j]=0;
             }
         }
+        if(y>1) y=1;
     }
 }
 
@@ -70,30 +77,32 @@ void dfs12(int x,int y)
                 vis[i][j]=vis[i][j+1]=2;
                 dfs12(i,j);
                 vis[i][j]=vis[i][j+1]=0;
-
             }
         }
+        if(y>1) y=1;
     }
 }
 
 int main()
 {
     int i,j;
-    n=3;
+    n=4;
     memset(vis,0,sizeof(vis));
-    /*int _;
+    int ans[20]={0,0,18,284,4862};
+    int _;
     scanf("%d",&_);
     while(_--)
     {
         scanf("%d",&n);
         printf("%d\n",ans[n]);
     }
-    */
-    //²Ü²Ù
-    cnt=0;
+
+    /*cnt=0;
     for(i=1; i<=n-1; i++)
+    //for(i=1; i<=1; i++)
     {
         for(j=1; j<=3; j++)
+        //for(j=1; j<=1; j++)
         {
             vis[i][j]=vis[i+1][j]=vis[i][j+1]=vis[i+1][j+1]=1;
             dfs12(1,1);
@@ -102,6 +111,6 @@ int main()
         }
     }
 
-    printf("%d\n",cnt);
+    printf("%d\n",cnt);*/
     return 0;
 }
