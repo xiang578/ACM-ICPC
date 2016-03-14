@@ -1,9 +1,15 @@
-#include<bits/std++.h>
+#include<bits/stdc++.h>
 using namespace std;
+
+int gcd(int n,int m)
+{
+    if(m==0) return n;
+    else return gcd(m,n%m);
+}
 
 int main()
 {
-    int n,m;
+    int n,m,t;
     int ans,_;
     scanf("%d",&_);
     while(_--)
@@ -13,10 +19,9 @@ int main()
         if(m>n) swap(n,m);
         while(1)
         {
-            if()
+            t=n/m;
+            n-=n
         }
-        if(n==1) ans+=m;
-        else if(m==1) ans+=n;
         printf("%d\n",ans);
     }
     return 0;
