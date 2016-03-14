@@ -1,26 +1,39 @@
 #include<bits/stdc++.h>
 using namespace std;
-struct node
-{
-    int x,t;
-}p[100000+10];
-
-int cmp(node a,node b)
-{
-    return a.t<b.t;
-}
-int dp[100000+10][11],use[100000+10][11];
+const int N=100000+10;
+int dp[N][11],a[N][11];
 
 int main()
 {
-    int n;
-    while(~scanf("%d",&n))
+    int i,j,x,t,ans,n,up;
+    while(~scanf("%d",&n)&&n)
     {
-        if(n==0) break;
+        memset(dp,0xff,sizeof(dp));
+        memset(a,0,sizeof(a));
+        up=0;
         for(i=0;i<n;i++)
-            scanf("%d%d",&p[i].x,&p[i].t);
-        sort(p,p+n,cmp);
-        for
+        {
+            scanf("%d%d",&x,&t);
+            a[t][x]++;
+            up=max(up,t);
+        }
+        dp[0][5]=0;
+        ans=0;
+        for(i=0;i<up;i++)
+        {
+            for(j=0;j<=10;j++)
+            {
+                if(dp[i][j]==-1) continue;
+                dp[i+1][j]=max(dp[i+1][j],dp[i][j]+a[i+1][j]);
+                if(j>=1) dp[i+1][j-1]=max(dp[i+1][j-1],dp[i][j]+a[i+1][j-1]);
+                if(j<10) dp[i+1][j+1]=max(dp[i+1][j+1],dp[i][j]+a[i+1][j+1]);
+            }
+        }
+        for(i=0;i<=10;i++)
+        {
+            ans=max(ans,dp[up][i]);
+        }
+        printf("%d\n",ans);
     }
     return 0;
 }
