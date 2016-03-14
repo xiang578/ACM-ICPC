@@ -1,0 +1,22 @@
+#include<bits/std++.h>
+using namespace std;
+
+int main()
+{
+    int _,a[100],u[100],k,i,f;
+    scanf("%d",&_);
+    while(_--)
+    {
+        memset(u,0,sizeof(u));
+        scanf("%d",&k);
+        for(i=0;i<k;i++)
+        {
+            scanf("%d",&a[i]);
+            u[a[i]]++;
+        }
+        
+        if(f) puts("valid");
+        else puts("invalid");
+    }
+    return 0;
+}
