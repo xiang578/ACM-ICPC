@@ -1,53 +1,60 @@
-#include<cstdio>
-#include<cstring>
-#include<string>
-#include<iostream>
-#include<algorithm>
-#include<map>
+#include<bits/stdc++.h>
 using namespace std;
-const int N=50005;
-int n,k,m;
-int s[1005];
-int v[1005][1005],r[1005][1005],x[1005][1005],a[1005][1005];
-char c[1005];
+const int N=1024;
+int g[N][N],r[N][N],h[N][N],l[N][N];
+
 int main()
 {
-    int i,j,ans;
-    int T;
-    scanf("%d",&T);
-    while(T--)
+    int _,n,m,i,j,k,ans;
+    char s[4000];
+    scanf("%d",&_);
+    while(_--)
     {
         scanf("%d%d",&n,&m);
-        memset(s,0,sizeof(s));
-        memset(r,0,sizeof(r));
-        memset(x,0,sizeof(x));
-        for(i=1; i<=n; i++)
+        //getchar();
+        for(i=1;i<=n;i++)
         {
-            scanf("%s",c);
-            for(j=0;j<n;j++)
-                a[i][j+1]=c[j]-'0';
-        }
-        x[n+1][n]=0;
-        r[n][n+1]=0;
-        v[n+1][n+1]=0;
-        ans=0;
-        for(i=n; i>=1; i--)
-        {
-            for(j=n; j>=1; j--)
+            for(j=1;j<=m;j++)
             {
-                if(a[i][j])
-                {
-                    v[i][j]=min(min(v[i+1][j+1],r[i][j+1]),x[i+1][j]);
-                    r[i][j]=r[i][j+1]+1;
-                    x[i][j]=x[i+1][j]+1;
-                    v[i][j]++;
-                }
-                else
-                    v[i][j]=r[i][j]=x[i][j]=0;
-                ans=max(ans,v[i][j]);
+                scanf("%s",s);
+                if(s[0]=='R') g[i][j]=0;
+                else g[i][j]=1;
+                r[i][j]=l[i][j]=j;
             }
         }
-        printf("%d\n",ans);
+        memset(h,0,sizeof(h));
+        for(i=1;i<=n;i++)
+        {
+            for(j=1;j<=m;j++)
+            {
+                if(g[i][j]==0) h[i][j]=0;
+                else h[i][j]=h[i-1][j]+1;
+            }
+        }
+        ans=0;
+        //printf("11111\n");
+        for(i=1;i<=n;i++)
+        {
+            //printf("%d",i);
+            h[i][0]=h[i][m+1]=-1;
+            for(j=m;j>=1;j--)
+            {
+                while(h[i][r[i][j]+1]>=h[i][r[i][j]])
+                    r[i][j]=r[i][r[i][j]+1];
+            }
+
+            for(j=1;j<=m;j++)
+            {
+                while(h[i][l[i][j]-1]>=h[i][l[i][j]])
+                    l[i][j]=l[i][l[i][j]-1];
+            }
+            for(j=1;j<=m;j++)
+            {
+                //printf("%d %d %d %d\n",(l[i][j]-r[i][j]+1)*h[i][j],r[i][j],l[i][j],h[i][j]);
+                ans=max(ans,(r[i][j]-l[i][j]+1)*h[i][j]);
+            }
+        }
+        printf("%d\n",3*ans);
     }
     return 0;
 }
