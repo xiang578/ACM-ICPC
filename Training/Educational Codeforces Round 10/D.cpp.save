@@ -38,6 +38,11 @@ int cmp(node a,node b)
     return a.l<b.l;
 }
 
+int cmp2(node a,node b)
+{
+    return a.id<b.id;
+}
+
 int lowbit(int x)
 {
     return x&-x;
@@ -65,7 +70,7 @@ void add(int x,int d)
 
 int main()
 {
-    int i,n,cnt,tl,tr,l,r;
+    int i,n,cnt,l,r;
     scanf("%d",&n);
     for(i=0; i<=up; i++) c[up]=0;
     cnt=0;
@@ -74,6 +79,7 @@ int main()
         scanf("%d%d",&r,&r);
         p[i].l=l;
         p[i].r=r;
+        p[i].id=i;
         x[cnt]=l;
         cnt++;
         x[cnt]=r;
@@ -81,18 +87,28 @@ int main()
     }
     mp.clear();
     sort(x,x+cnt);
+    sort(p,p+n,cmp);
     for(i=0; i<cnt; i++)
     {
         mp[x[i]]=i+1;
     }
-    for(i=0; i<cnt; i++)
+    for(i=0;i<n;i++)
     {
-        tr=mp[r[i]];
-        add(tr,1);
+        p[i].l=mp[p[i].l];
+        p[i].r=mp[p[i].r];
+        add(p[i].r,1);
     }
-    for(i=0; i<cnt; i++)
+    for(i=0;i<n;i++)
     {
-        printf("%d\n",sum(mp[r[i])-sum(mp[l[i]]));
+        l=p[i].l;
+        r=p[i].r;
+        if(r>=)
+            p[i].ans=0;
+        else 
+            p[i].ans=sum(r-1)-sum(l);
     }
+    sort(p,p+n,cmp2);
+    for(i=0;i<n;i++)
+        printf("%d\n",p[i].ans);
     return 0;
 }
