@@ -1,12 +1,12 @@
 #include<bits/stdc++.h>
 using namespace std;
-
+const int inf=0x3f3f3f3f;
 int top,s[10024];
 
 struct data
 {
     int x,y;
-}p[10024],temp;
+} p[10024],temp;
 
 int corss(data a,data b,data c)
 {
@@ -32,12 +32,12 @@ int cmp(const void *a,const void  *b)
     else return -1;
 }
 
-int pt,dp[1024][1024];
+int pt,dp[1024][1024],c[1024][1024];
 
 int cost(int i,int j)
 {
-    int t1=p[i].x-p[j].x;
-    int t2=p[j].y-p[j].y;
+    int t1=p[i].x+p[j].x;
+    int t2=p[i].y+p[j].y;
     if(t1<0) t1=-t1;
     if(t2<0) t2=-t2;
     return t1*t2%pt;
@@ -48,44 +48,55 @@ int main()
     int n,i,j,k,u,r;
     while(~scanf("%d%d",&n,&pt))
     {
-        for(i=0;i<n;i++) scanf("%d%d",&p[i].x,&p[i].y);
-        if(n==3) {printf("0\n");continue;}
+        for(i=0; i<n; i++) scanf("%d%d",&p[i].x,&p[i].y);
         u=0;
-        for(i=0;i<n;i++)
+        for(i=0; i<n; i++)
         {
             if(p[i].y<p[u].y||((p[i].y==p[u].y)&&p[i].x<p[u].x))
                 u=i;
         }
-        temp=p[u];p[u]=p[0];p[0]=temp;
+        temp=p[u];
+        p[u]=p[0];
+        p[0]=temp;
         qsort(&p[1],n-1,sizeof(int)*2,cmp);
-        for(i=0;i<=2;i++) s[i]=i;
+        for(i=0; i<=2; i++) s[i]=i;
         top=2;
-        for(i=3;i<n;i++)
+        for(i=3; i<n; i++)
         {
             while(corss(p[s[top-1]],p[s[top]],p[i])<=0) top--;
             s[++top]=i;
         }
-        if(top<n) {printf("I can't cut.\n");continue;}
-        for(i=1;i<=n;i++)
-            dp[i][i]=0;
+        if(top!=n-1)
+        {
+            printf("I can't cut.\n");
+            continue;
+        }
+        memset(dp,0,sizeof(dp));
+        for(i=0; i<n; i++)
+        {
+            for(j=0; j<n; j++)
+                dp[i][j]=inf;
+            dp[i][(i+1)%n]=0;
+        }
+        memset(c,0,sizeof(c));
+        for(i=0; i<n; i++)
+            for(j=i+2; j<n; j++)
+                c[j][i]=c[i][j]=cost(s[i],s[j]);
+
         for(r=2;r<=n;r++)
         {
-            for(i=1;i<=n-r-1;i++)
+            for(i=0;i<=n-r;i++)
             {
-                int j=i+r-1;
-                dp[i][j]=dp[i+1][j]+cost(i+1,j);
-
-                for(k=i+1;k<j;k++)
-                {
-                    u=dp[i][k]+dp[k+1][j]+cost(i,k)+cost(k,j);
-                    dp[i][j]=min(dp[i][j],u);
-                }
+                j=i+r-1;
+                for(k=i+1;k<=j-1;k++)
+                    dp[i][j]=min(dp[i][j],dp[i][k]+dp[k][j]+c[i][k]+c[k][j]);
             }
         }
-        printf("%d\n",dp[1][n]);
+        printf("%d\n",dp[0][n-1]);
     }
     return 0;
 }
+
 /*
 测试数据：
 3 3
