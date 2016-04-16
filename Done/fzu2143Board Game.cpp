@@ -1,11 +1,10 @@
-//poj 2135 最小费用最大流
 #include<stdio.h>
 #include<string.h>
 #include<vector>
 #include<queue>
 #include<algorithm>
 using namespace std;
-const int N=5024;
+const int N=100;
 const int inf=0x7fffffff;
 struct Edge
 {
@@ -13,6 +12,7 @@ struct Edge
 };
 vector<Edge>edges;
 vector<int>G[N];
+int n,m;
 int inq[N],p[N],d[N],a[N];
 
 void AddEdge(int from, int to,int cap, int cost)
@@ -29,7 +29,7 @@ void AddEdge(int from, int to,int cap, int cost)
     G[to].push_back(g-1);
 }
 
-int BellmanFord(int s,int t,int &flow, int &cost,int n)
+int BellmanFord(int s,int t,int &flow, int &cost)
 {
     int i,j,u;
     for(i=0; i<=n+1; i++) d[i]=inf;
@@ -61,7 +61,7 @@ int BellmanFord(int s,int t,int &flow, int &cost,int n)
             }
         }
     }
-    if(d[t]==inf) return 0;
+    if(d[t]>=0) return 0;
     flow+=a[t];
     cost+=d[t]*a[t];
     u=t;
@@ -74,34 +74,67 @@ int BellmanFord(int s,int t,int &flow, int &cost,int n)
     return 1;
 }
 
-int Mincost(int s,int t,int n)
+int Mincost(int s,int t)
 {
     int flow=0,cost=0;
-    while(BellmanFord(s,t,flow,cost,n));
+    while(BellmanFord(s,t,flow,cost));
     return cost;
 }
 
-void init(int n)
-{
-    for(int i=0; i<=n+1; i++) G[i].clear();
-        edges.clear();
-}
+int dx[]={0,0,1,-1};
+int dy[]={1,-1,0,0};
 
 int main()
 {
-    int i,u,v,c,n,m;
-    while(~scanf("%d%d",&n,&m))
+    int b[100][100],ans,p[100][100];
+    int tn,tm,i,j,u,v,c,s,t,k,_;
+    scanf("%d",&_);
+    for(int __=1; __<=_; __++)
     {
-        init(n);
-        for(i=0;i<m;i++)
+        scanf("%d%d%d",&tn,&tm,&k);
+        ans=0;
+        int cnt=1;
+        for(i=0; i<tn; i++)
         {
-            scanf("%d%d%d",&u,&v,&c);
-            AddEdge(u,v,1,c);
-            AddEdge(v,u,1,c);
+            for(j=0; j<tm; j++)
+            {
+                scanf("%d",&b[i][j]);
+                ans+=b[i][j]*b[i][j];
+                p[i][j]=cnt;
+                cnt++;
+            }
         }
-        AddEdge(0,1,2,0);
-        AddEdge(n,n+1,2,0);
-        printf("%d\n",Mincost(0,n+1,n));
+        s=0;
+        t=cnt;
+        n=cnt;
+        edges.clear();
+        for(i=0; i<=n+1; i++)
+            G[i].clear();
+        for(i=0; i<tn; i++)
+        {
+            for(j=0; j<tm; j++)
+            {
+                if(i%2==j%2)
+                {
+                    for(int f=1; f<=k; f++)
+                        AddEdge(s,p[i][j],1,2*f-1-2*b[i][j]);
+                    for(int f=0;f<4;f++)
+                    {
+                        int x=i+dx[f];
+                        int y=j+dy[f];
+                        if(x<0||x>=tn||y>=tm||y<0) continue;
+                        AddEdge(p[i][j],p[x][y],inf,0);
+                    }
+                }
+                else
+                {
+                    for(int f=1; f<=k; f++)
+                        AddEdge(p[i][j],t,1,2*f-1-2*b[i][j]);
+                }
+
+            }
+        }
+        printf("Case %d: %d\n",__,ans+Mincost(s,t));
     }
     return 0;
 }

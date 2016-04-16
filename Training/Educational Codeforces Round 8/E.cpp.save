@@ -3,8 +3,9 @@
 #include<string.h>
 #include<queue>
 #include<vector>
+#include<algorithm>
 using namespace std;
-const int N=1024;
+const int N=30000;
 const int inf=1<<24;
 
 struct Edge
@@ -86,21 +87,74 @@ int Maxflow(int st,int ed)
     }
     return flow;
 }
+struct node
+{
+    int up,num,id;
+} p[N];
+
+int cmp(node a,node b)
+{
+    return a.up<b.up;
+}
 
 int main()
 {
-    int n,m,u,v,c;
-    while(~scanf("%d%d",&n,&m))
+    int n,b,u,v,c,q,m[10];
+    while(~scanf("%d%d%d",&n,&b,&q))
     {
-         edges.clear();
+        edges.clear();
         for(int i=0; i<N; i++) G[i].clear();
-        s=1;t=n;
-        for(int i=0;i<m;i++)
+        for(int i=0; i<q; i++)
         {
-            scanf("%d%d%d",&u,&v,&c);
-            AddEdge(u,v,c);
+            scanf("%d%d",&p[i].up,&p[i].num);
         }
-        printf("%d\n",Maxflow(s,t));
+         s=0;
+        t=b+q+5+1;
+        sort(p,p+q,cmp);
+        for(int i=0; i<q; i++)
+        {
+            p[i].id=b+i+1;
+        }
+        for(int i=0;i<q-1;i++)
+            AddEdge(p[i].id,p[i+1].id,p[i].num);
+        AddEdge(p[q-1].id,t,p[q-1].num);
+        //printf("%d %d %d\n",p[q-1].id,t,p[q-1].num);
+        for(int i=0; i<5; i++)
+        {
+            m[i]=b+q+i+1;
+            AddEdge(s,m[i],n/5);
+        }
+        /*int j;
+        for(int i=0,j=0;i<q;i++)
+        {
+            while(j<=p[i].up)
+            {
+                int k=j%5;
+                AddEdge(m[k],j,1);
+                AddEdge(j,p[i].id,1);
+                j++;
+            }
+        }
+        for(;j<=b;j++)
+        {
+            int k=j%5;
+            AddEdge(m[k],j,1);
+            AddEdge(j,t,1);
+        }*/
+        int cnt=0;
+        for(int i=1;i<=b;i++)
+        {
+            int k=i%5;
+            AddEdge(m[k],i,1);
+            while(p[cnt].up<i&&cnt<q)  cnt++;
+            if(cnt<q)
+            AddEdge(i,p[cnt].id,1);
+            else AddEdge(i,t,1);
+            //printf("%d\n",i);
+        }
+        //printf("%d\n",Maxflow(s,t));
+        if(Maxflow(s,t)==n) puts("fair");
+        else puts("unfair");
     }
     return 0;
 }
