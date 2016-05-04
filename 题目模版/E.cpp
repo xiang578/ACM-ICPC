@@ -1,7 +1,7 @@
 /* ***********************************************
 Author        :Maltub
 Email         :xiang578@foxmail.com
-Blog          :htttp://www.xiang578.top
+Blog          :htttp://www.xiang578.com
 ************************************************ */
 
 #include <cstdio>
@@ -31,6 +31,6 @@ int main()
 {
     //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
-    
+
     return 0;
 }

@@ -31,6 +31,28 @@ int main()
 {
     //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
-
+    int _;
+    ll t,a,b,c;
+    scanf("%d",&_);
+    while(_--)
+    {
+        scanf("%lld",&t);
+        int f=0;
+        //ll up=sqrt(t)+1;
+        for(ll i=1;i*i<=t;i++)
+        {
+            if(t%i==0)
+            {
+                a=i;
+                b=t/i;
+                if(a==b||a==0||b==0) continue;
+                c=a+b;
+                if(c%2==0) {f=1;}
+            }
+            if(f) break;
+        }
+        if(f) puts("True");
+        else puts("False");
+    }
     return 0;
 }
