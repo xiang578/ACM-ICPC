@@ -61,8 +61,16 @@ int BellmanFord(int s,int t,int &flow, int &cost,int n)
         }
     }
     if(d[t]==inf) return 0;
-    flow+=a[t];
-    cost+=d[t]*a[t];
+    if((long long )cost>=(long long )d[t]*a[t])
+    {
+        flow+=a[t];
+        cost-=d[t]*a[t];
+    }
+    else
+    {
+        flow+=cost/d[t];
+        return 0;
+    }
     u=t;
     while(u!=0)
     {
@@ -73,18 +81,14 @@ int BellmanFord(int s,int t,int &flow, int &cost,int n)
     return 1;
 }
 
-int Mincost(int s,int t,int n,int mx,int pi)
+int Mincost(int s,int t,int n,int mx)
 {
-    int flow=0,cost=0,ans=0;
+    int flow=0,cost=mx,ans=0;
     while(BellmanFord(s,t,flow,cost,n))
     {
-        printf("%d %d\n",cost,flow);
-        mx=mx-cost-(flow-ans)*pi;
-        if(mx>=0) ans=flow;
-        else break;
-
+        //printf("%d %d\n",flow,cost);
     };
-    return ans;
+    return flow;
 }
 
 void init(int n)
@@ -101,7 +105,7 @@ int main()
     {
         scanf("%d%d%d%d",&n,&m,&mx,&pi);
         init(n);
-        AddEdge(n,0,inf,pi);
+        AddEdge(n,0,mx/pi,pi);
         for(i=0;i<m;i++)
         {
             scanf("%d%d%d%d",&u,&v,&c1,&c2);
@@ -110,7 +114,7 @@ int main()
             AddEdge(u,v,inf,c2);
             AddEdge(v,u,inf,c2);
         }
-        printf("%d\n",Mincost(n,1,n,mx,pi));
+        printf("%d\n",Mincost(n,1,n,mx));
     }
     return 0;
 }
