@@ -25,12 +25,25 @@ typedef vector<int> VI;
 typedef long long ll;
 const ll mod=1000000007;
 const int N=2048;
-const int M=1e5+10;
+
 
 int main()
 {
     //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
-
+    int n,m,ok;
+    char s[10];
+    scanf("%d%d",&n,&m);
+    ok=0;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            scanf("%s",&s);
+            if(s[0]=='C'||s[0]=='M'||s[0]=='Y') ok=1;
+        }
+    }
+    if(ok) puts("#Color");
+    else puts("#Black&White");
     return 0;
 }

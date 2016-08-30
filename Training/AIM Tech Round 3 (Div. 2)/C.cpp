@@ -25,12 +25,24 @@ typedef vector<int> VI;
 typedef long long ll;
 const ll mod=1000000007;
 const int N=2048;
-const int M=1e5+10;
-
+string s;
 int main()
 {
     //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
-
+    cin>>s;
+    int t=0;
+    for(int i=0;i<s.size();i++)
+    {
+        if(s[i]=='a'&&t==1) break;
+        if(s[i]=='a') continue;
+        s[i]--;
+        t=1;
+    }
+    if(t==0)
+    {
+        s[s.size()-1]='z';
+    }
+    cout<<s;
     return 0;
 }

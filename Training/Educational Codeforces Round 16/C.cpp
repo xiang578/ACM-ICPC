@@ -25,12 +25,42 @@ typedef vector<int> VI;
 typedef long long ll;
 const ll mod=1000000007;
 const int N=2048;
-const int M=1e5+10;
-
+int ans[50][50];
 int main()
 {
     //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
+    int n;
+    scanf("%d",&n);
+    if(n==1)
+    {printf("%d\n",n);return 0;}
+    int a=1;
+    int b=2;
+    int f=1;
+    int m=n/2+1;
+    memset(ans,0,sizeof(ans));
+    for(int i=1;i<=n;i++)
+    {
 
+        for(int j=m;j<m+f;j++)
+        {
+            ans[i][j]=a;
+            a+=2;
+        }
+        for(int j=m-1;j>m-f;j--)
+        {
+            ans[i][j]=a;
+            a+=2;
+        }
+        if(i<m) f++;
+        else if(i>=m) f--;
+    }
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=n;j++)
+    {
+        if(ans[i][j]==0) {ans[i][j]=b;b+=2;}
+        printf("%d ",ans[i][j]);
+        if(j==n) printf("\n");
+    }
     return 0;
 }

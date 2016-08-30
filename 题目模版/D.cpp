@@ -25,7 +25,7 @@ typedef vector<int> VI;
 typedef long long ll;
 const ll mod=1000000007;
 const int N=2048;
-
+const int M=1e6+10;
 
 int main()
 {

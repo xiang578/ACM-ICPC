@@ -25,12 +25,36 @@ typedef vector<int> VI;
 typedef long long ll;
 const ll mod=1000000007;
 const int N=2048;
-const int M=1e5+10;
-
+ll n,m,k,t;
 int main()
 {
     //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
-
+    scanf("%lld",&n);
+    if(n<=2) puts("-1");
+    else
+    {
+        if(n%4==0)
+        {
+            m=n/4*3;
+            k=n/4*5;
+        }
+        else if(n%2==1)
+        {
+            t=n*n;
+            m=t/2;
+            k=t-m;
+        }
+        else
+        {
+            n/=2;
+            t=n*n;
+            m=t/2;
+            k=t-m;
+            m*=2;
+            k*=2;
+        }
+        printf("%lld %lld\n",m,k);
+    }
     return 0;
 }

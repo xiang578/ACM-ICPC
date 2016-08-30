@@ -31,6 +31,24 @@ int main()
 {
     //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
-
+    int n,t,o=-1;
+    scanf("%d",&n);
+    for(int i=1;i<=n;i++)
+    {
+        scanf("%d",&t);
+        if(t%2==1)
+        {
+            if(o==-1) o=2;
+            else if(o==1) o=1;
+            else if(o==2) o=2;
+        }
+        else
+        {
+            if(o==-1) o=1;
+            else if(o==1) o=2;
+            else if(o==2) o=1;
+        }
+        printf("%d\n",o);
+    }
     return 0;
 }

@@ -24,13 +24,22 @@ using namespace std;
 typedef vector<int> VI;
 typedef long long ll;
 const ll mod=1000000007;
-const int N=2048;
-const int M=1e5+10;
+const int N=1e6;
+int a[N];
 
 int main()
 {
     //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
-
+    int n;
+    scanf("%d",&n);
+    for(int i=1;i<=n;i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    sort(a+1,a+n+1);
+    if(n%2==1) n=n/2+1;
+    else n=n/2;
+    printf("%d\n",a[n]);
     return 0;
 }
