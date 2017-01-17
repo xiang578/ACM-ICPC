@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <string.h>
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+#include <set>
+#include <map>
+#include <string>
+#include <math.h>
+#include <stdlib.h>
+#include <time.h>
+using namespace std;
+const int N=1e6+10;
+int t[N],p[N],f[N],m,n,x;
+void getfail()
+{
+    f[0]=0;
+    f[1]=0;
+    for(int i=1; i<m; i++)
+    {
+        int j=f[i];
+        while(j&&p[i]!=p[j]) j=f[j];
+        f[i+1]=p[i]==p[j]?j+1:0;
+    }
+}
+int kmp()
+{
+    int cnt=0,i,j;
+    getfail();
+    for(int k=0; k<x; k++)
+    {
+        if(k+(m-1)*x>=n) break;
+        for(i=k,j=0; i<n; i+=x)
+        {
+            //printf("%d\n",i);
+            while(j&&p[j]!=t[i]) j=f[j];
+            if(p[j]==t[i]) j++;
+            if(j==m)
+            {
+                cnt++;
+                j=f[j];
+            }
+        }
+    }
+    return cnt;
+}
+int main()
+{
+    int f[1024];
+    int _;
+    scanf("%d",&_);
+    for(int k=1;k<=_;k++)
+    {
+        scanf("%d%d%d",&n,&m,&x);
+        for(int i=0;i<n;i++)
+            scanf("%d",&t[i]);
+        for(int i=0;i<m;i++)
+            scanf("%d",&p[i]);
+        printf("Case #%d: %d\n",k,kmp());
+    }
+    return 0;
+}
