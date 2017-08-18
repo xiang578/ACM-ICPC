@@ -1,3 +1,4 @@
+
 /* ***********************************************
 Author        :xryz
 Email         :xiang578@foxmail.com
@@ -37,35 +38,34 @@ int main()
 		for(i=x;i<=100;i++)
 			dp[cur][i]=(i-x)*(i-x);
 
+		int mindp;
 		for(i=1;i<n;i++)
 		{
 			scanf("%d",&x);
 			cur=1-cur;
 
 			//前一个比后一个矮
-			ph=pt=0;
+			mindp = inf;
 			for(j=0;j<=100;j++)
 			{
 				now=dp[1-cur][j]-c*j;
-				while(ph<pt&&q[pt-1]>now)
-					pt--;
-				q[pt++]=now;
+				if(mindp > now)
+					mindp = now;
 				if(j<x)
 					dp[cur][j]=inf;
 				else
-					dp[cur][j]=q[ph]+(x-j)*(x-j)+c*j;
+					dp[cur][j]=mindp+(x-j)*(x-j)+c*j;
 			}
 			
 			//前一个比后一个高
-			ph=pt=0;
+			mindp = inf;
 			for(j=100;j>=0;j--)
 			{
 				now=dp[1-cur][j]+c*j;
-				while(ph<pt&&q[pt-1]>now)
-					pt--;
-				q[pt++]=now;
+				if(mindp > now)
+					mindp = now;
 				if(j>=x)
-					dp[cur][j]=min(dp[cur][j],q[ph]+(x-j)*(x-j)-c*j);
+					dp[cur][j]=min(dp[cur][j],mindp+(x-j)*(x-j)-c*j);
 			}
 		}
 
