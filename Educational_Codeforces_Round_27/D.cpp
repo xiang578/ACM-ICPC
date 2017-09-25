@@ -14,6 +14,7 @@ Blog          :htttp://www.xiang578.com
 #include <map>
 #include <string>
 #include <math.h>
+#include <stack>
 #include <stdlib.h>
 #include <time.h>
 //#include <bits/stdc++.h>
@@ -32,5 +33,49 @@ int main()
     //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
 
+    int n,t,s,sp,ov,ans;
+    stack<int>st;
+    scanf("%d",&n);
+    sp=0;
+    ov=0;
+    ans=0;
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&t);
+        if(t==1)
+        {
+            scanf("%d",&s);
+            sp=s;
+            while(!st.empty()&&st.top()<sp)
+            {
+                ans+=1;
+                st.pop();
+            }
+        }
+        else if(t==2)
+        {
+            ans+=ov;
+            ov=0;
+        }
+        else if(t==3)
+        {
+            scanf("%d",&s);
+            if(sp>s) {ans++;continue;}
+            st.push(s);
+        }
+        else if(t==4)
+        {
+            ov=0;
+        }
+        else if(t==5)
+        {
+            while(!st.empty()) st.pop();
+        }
+        else if(t==6)
+        {
+            ov++;
+        }
+    }
+    printf("%d\n",ans);
     return 0;
 }
