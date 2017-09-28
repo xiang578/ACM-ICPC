@@ -25,22 +25,33 @@ typedef vector<int> VI;
 typedef long long ll;
 const ll mod=1000000007;
 const int N=2048;
-const int M=1e5+10;
+const int M=1e6+10;
 
 int main()
 {
     //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
-    int n,x,t,a[1024];
-    cin>>n>>x;
-    for(int i=0;i<n;i++) {scanf("%d",&t);a[t]=1;}
-    int ans=0;
-    for(int i=0;i<x;++i)
+    int n,k,a[200];
+    scanf("%d%d",&n,&k);
+    memset(a,0,sizeof(a));
+    for(int i=0;i<n;i++)
     {
-        if(a[i]==0)
-            ans++;
+        int l,r;
+        scanf("%d%d",&l,&r);
+        while(l<=r)
+        {
+            a[l+100]++;
+            l++;
+        }
     }
-    if(a[x]==1) ans++;
-    cout<<ans<<endl;
+    int mi=mod,mx=-mod;
+    for(int i=-50;i<=50;i++)
+    {
+        if(a[i+100]==0||a[i+101]<k) continue;
+        mx=max(i,mx);
+        mi=min(i,mi);
+    }
+    if(mi==mod||mx==-mod) puts("error");
+    else printf("%d %d\n",mi,mx);
     return 0;
 }

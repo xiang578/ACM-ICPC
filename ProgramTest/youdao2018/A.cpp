@@ -26,21 +26,48 @@ typedef long long ll;
 const ll mod=1000000007;
 const int N=2048;
 const int M=1e5+10;
+int a[10],b[10];
 
 int main()
 {
     //freopen("in.txt","r",stdin);
     //freopen("out.txt","w",stdout);
-    int n,x,t,a[1024];
-    cin>>n>>x;
-    for(int i=0;i<n;i++) {scanf("%d",&t);a[t]=1;}
-    int ans=0;
-    for(int i=0;i<x;++i)
+    int _,t;
+    scanf("%d",&_);
+    while(_--)
     {
-        if(a[i]==0)
-            ans++;
+        int num;
+        scanf("%d",&num);
+        memset(a,0,sizeof(a));
+        int t=num;
+        while(t)
+        {
+            a[t%10]++;
+            t/=10;
+        }
+        int ok=0;
+        for(int i=2;i<=10;i++)
+        {
+            t=num*i;
+            memset(b,0,sizeof(b));
+            while(t)
+            {
+                b[t%10]++;
+                t/=10;
+            }
+            ok=1;
+            for(int i=0;i<10;i++)
+            {
+                if(a[i]!=b[i])
+                {
+                    ok=0;
+                    break;
+                }
+            }
+            if(ok==1) break;
+        }
+        if(ok) puts("Possible");
+        else puts("Impossible");
     }
-    if(a[x]==1) ans++;
-    cout<<ans<<endl;
     return 0;
 }
