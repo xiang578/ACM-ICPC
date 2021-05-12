@@ -24,12 +24,14 @@ using namespace std;
 typedef vector<int> VI;
 typedef long long ll;
 const ll mod=1000000007;
-const int N=2048;
+const int n=100000 + 5;
 const int M=1e6+10;
+
 
 int main()
 {
-    //freopen("in.txt","r",stdin);
-    //freopen("out.txt","w",stdout);
+    int a, b;
+    scanf("%d %d", &a, &b);
+    printf("%d\n", a+b);
     return 0;
 }
