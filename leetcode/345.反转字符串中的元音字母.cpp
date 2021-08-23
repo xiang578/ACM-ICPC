@@ -8,11 +8,11 @@
 class Solution {
 public:
     int f(char c) {
-        if (c == 'a') return 1;
-        if (c == 'e') return 1;
-        if (c == 'i') return 1;
-        if (c == 'o') return 1;
-        if (c == 'u') return 1;
+        if (c == 'a' || c == 'A') return 1;
+        if (c == 'e' || c == 'E') return 1;
+        if (c == 'i' || c == 'I') return 1;
+        if (c == 'o' || c == 'O') return 1;
+        if (c == 'u' || c == 'U') return 1;
         return 0;
     }
 
@@ -24,7 +24,9 @@ public:
             if (i>=j) break;
             while(j>i && f(s[j]) == 0) j--;
             if(i>=j) break;
+            // cout<<i<<" "<<j<<endl;
             swap(s[i], s[j]);
+            i++;j--;
         }
         return s;
     }
